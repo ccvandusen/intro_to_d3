@@ -20,9 +20,9 @@ In this tutorial, we'll work on building a graph of data involving movies that w
 Each dot on the graph represents a single movie. Here are some of the important features of the graph:
 
 1. The color of each dot corresponds to its quality (as measured by its Rotten Tomatoes freshness score)
-2. The size of each point represents the [multiplier](http://www.the-numbers.com/glossary.php) for the film. A film's multiplier is its total gross divided by its opening weekend gross; the higher the multiplier (i.e. the larger the dot), the greater its longevity. 
+2. The size of each point represents the [multiplier](http://www.the-numbers.com/glossary.php) for the film. A film's multiplier is its total gross divided by its opening weekend gross; the higher the multiplier (i.e. the larger the dot), the greater its longevity.
 2. The vertical placement of the point corresponds to how much money the film made (in millions of dollars).
-3. By default, the horizontal placement of the dot corresponds to how long the film was in theaters (in days). 
+3. By default, the horizontal placement of the dot corresponds to how long the film was in theaters (in days).
 4. All data is scaled so that it fits in the graph space.
 5. There are horizontal and vertical axes to help label the data. (**Note:** we won't cover this, we'll leave it as a bonus).
 6. Hovering over a dot reveals the film it represents. (**Note:** we won't cover this, we'll leave it as a bonus).
@@ -101,7 +101,7 @@ We're first selecting the `body` tag in HTML using `d3`. Similar to `jQuery` or 
 
 After we select the `body` tag we call `.selectAll("p")` on the selection. This seems like a strange thing to do; after all, there aren't any `p` tags on the page! Shouldn't this result in some kind of empty selection, or maybe even `null`?
 
-While the syntax may look strange, this is a very common pattern in `d3`. You can think of the expression 
+While the syntax may look strange, this is a very common pattern in `d3`. You can think of the expression
 
 ```js
 d3.select("body")
@@ -112,9 +112,9 @@ as a sort of placeholder for the paragraph tags that we're about to create.
 
 The next line is where the binding takes place. The `data` method is probably the most important method in all of `d3`. The `data` method is responsible for _joining_ an array of data to a collection of elements in the document (in this case, a collection of HTML `p` tags).
 
-In the event that there's more data in the array than elements on the page, `d3` creates what's called an `enter` selection. As described in the `d3` [docs](https://github.com/d3/d3-selection/blob/master/README.md#selection_enter), the enter selection is essentially a "placeholder nodes for each datum that had no corresponding DOM element in the selection," and "is typically used to create 'missing' elements corresponding to new data." To access this selection, we call the `enter` method. We can then append these nodes into our document. 
+In the event that there's more data in the array than elements on the page, `d3` creates what's called an `enter` selection. As described in the `d3` [docs](https://github.com/d3/d3-selection/blob/master/README.md#selection_enter), the enter selection is essentially a "placeholder nodes for each datum that had no corresponding DOM element in the selection," and "is typically used to create 'missing' elements corresponding to new data." To access this selection, we call the `enter` method. We can then append these nodes into our document.
 
-This is what's happening in the next line, when we call `.append("p")`. We are taking our selection of elements bound to our quote data, and appending them to the page. 
+This is what's happening in the next line, when we call `.append("p")`. We are taking our selection of elements bound to our quote data, and appending them to the page.
 
 The last thing we do is call the `text` method. What's going on here? It seems that we're passing a function into this method, which takes a parameter `d`. This is another common `d3` pattern: in this instance, passing in a function to `text` has the effect of running that function on every item in the array of data. In the above example, the function doesn't too much: it just returns the current quote (represented by the variable `d`). What happens if you `return d[0]` instead? Or `d.toUpperCase()`?
 
@@ -347,7 +347,7 @@ svg.selectAll('circle')
 
 If you refresh the page, you should see a black dot in the center of the svg! By default, the dots will have a black fill (we'll learn how to customize this later).
 
-Let's add some more coordinates to the `data` array. 
+Let's add some more coordinates to the `data` array.
 
 ```js
 var data = [ [250, 250], [0, 0], [100, 150], [400, 200], [700, 250] ];
@@ -355,7 +355,7 @@ var data = [ [250, 250], [0, 0], [100, 150], [400, 200], [700, 250] ];
 
 When you refresh the page, there may be a few things that surprise you. Here are some things to observe:
 
-1. The point at (0, 0) corresponds to the _upper_-left corner of the svg, not the _lower_-left, as it usually does when you set up coordinates in math class. Values increase from left to right horizontally, but from top to bottom vertically. 
+1. The point at (0, 0) corresponds to the _upper_-left corner of the svg, not the _lower_-left, as it usually does when you set up coordinates in math class. Values increase from left to right horizontally, but from top to bottom vertically.
 2. Just because the center of the dot fits in the svg, doesn't mean the entire dot will. For example, the dot at (0, 0) gets cropped by the edges of the svg so that you only see part of it.
 3. If the center of the dot is outside the bounds of the svg, it may not show up at all! Notice that there are five elements in the `data` array, but only four dots appearing on the svg. The dot with a `cx` value of `700` sits outside the bounds of the svg and isn't visible.
 
@@ -428,7 +428,7 @@ var xScale = d3.scaleLinear()
 
 var yScale = d3.scaleLinear()
                .domain([yMin, yMax])
-               .range([height - padding, padding]); 
+               .range([height - padding, padding]);
 ```
 
 Things should look better now. Let's explore some more interesting data.
@@ -443,7 +443,7 @@ To begin, let's replace our array of coordinates by just setting `data` equal to
 var data = movies;
 ```
 
-Next, we need to decide what we want to plot. for now, let's plot total earnings on the y axis, and days open on the x axis. This means we need to update our code to reference these two properties: 
+Next, we need to decide what we want to plot. for now, let's plot total earnings on the y axis, and days open on the x axis. This means we need to update our code to reference these two properties:
 
 ```js
 var xMin = d3.min(data, function(d) {
@@ -487,7 +487,7 @@ So far so good. Now let's adjust the color of each dot based on its freshness. W
 var colorScale = d3.scaleLinear()
                    .domain([0,1])
                    .range(['red', 'green']);
-                   
+
 svg.selectAll('circle')
   .data(data)
   .enter()
